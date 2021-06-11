@@ -16,9 +16,9 @@ function App() {
 
   return (
     <Container>
-      <Draggable>
-        <Rect />
-      </Draggable>
+      {draggableItems.map((index) => {
+        return <Rect key={index}>{index}</Rect>;
+      })}
     </Container>
   );
 }
@@ -30,10 +30,20 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
-const Rect = styled.div`
+const Rect = styled.attrs((props) => ({
+  style: {},
+}))`
+  display: flex;
+  position: absolute;
+  left: calc(50vw - 150px);
+  justify-content: center;
+  align-items: center;
   width: 400px;
   height: 200px;
+  font-size: 20px;
+  color: #777;
   background: crimson;
   border-radius: 10px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  user-select: none;
 `;
