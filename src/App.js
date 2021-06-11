@@ -1,9 +1,12 @@
 import styled from "styled-components";
+import Draggable from "./components/Draggable";
 
 function App() {
   return (
     <Container>
-      <Rect />
+      <Draggable>
+        <Rect />
+      </Draggable>
     </Container>
   );
 }
