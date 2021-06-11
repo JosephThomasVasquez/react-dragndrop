@@ -23,7 +23,7 @@ function App() {
       // Const to set y position based on item height and update index of items
       const delta = Math.round(translation.y / itemHeight);
       const index = dragState.order.indexOf(id);
-      const dragOrder = dragState.order.filter(index > index !== id);
+      const dragOrder = dragState.order.filter((index) => index !== id);
 
       if (!inRange(index + delta, 0, draggableItems.length)) {
         return;
@@ -54,11 +54,20 @@ function App() {
   return (
     <Container>
       {draggableItems.map((index) => {
-        const topPosition = dragState.order.indexOf(index) * (itemHeight + 10);
+        const isDragging = dragState.draggableIndex === index;
+        const draggedTop = dragState.order.indexOf(index) * (itemHeight + 10);
+        const top = dragState.dragOrder.indexOf(index) * (itemHeight + 10);
 
         return (
-          <Draggable key={index} onDrag={handleDrag} onDragEnd={handleDragEnd}>
-            <Rect top={topPosition}>{index}</Rect>
+          <Draggable
+            key={index}
+            id={index}
+            onDrag={handleDrag}
+            onDragEnd={handleDragEnd}
+          >
+            <Rect top={isDragging ? draggedTop : top} isDragging={isDragging}>
+              {index}
+            </Rect>
           </Draggable>
         );
       })}
@@ -76,6 +85,7 @@ const Container = styled.div`
 const Rect = styled.div.attrs((props) => ({
   style: {
     top: `${props.top}px`,
+    transition: props.isDragging ? "none" : "all 500ms",
   },
 }))`
   display: flex;
@@ -85,9 +95,9 @@ const Rect = styled.div.attrs((props) => ({
   align-items: center;
   width: 400px;
   height: ${itemHeight}px;
-  font-size: 20px;
+  font-size: 24px;
   color: crimson;
-  background: #eee;
+  background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
   user-select: none;

@@ -42,17 +42,14 @@ const Draggable = ({ children, onDrag, onDragEnd, id }) => {
 
   // MOUSE UP
   // Handle mouse Up event to set isDraggable to false
-  const handleMouseUp = useCallback(
-    ({ clientX, clientY }) => {
-      setDragItem((dragItem) => ({
-        ...dragItem,
-        isDragging: false,
-      }));
+  const handleMouseUp = useCallback(() => {
+    setDragItem((dragItem) => ({
+      ...dragItem,
+      isDragging: false,
+    }));
 
-      onDragEnd();
-    },
-    [onDragEnd]
-  );
+    onDragEnd();
+  }, [onDragEnd]);
 
   // Use effect to update on mouse status using DOM event listeners
   useEffect(() => {
@@ -75,7 +72,7 @@ const Draggable = ({ children, onDrag, onDragEnd, id }) => {
     () => ({
       cursor: dragItem.isDragging ? "-webkit-grabbing" : "-webkit-grab",
       transform: `translate(${dragItem.translation.x}px, ${dragItem.translation.y}px)`,
-      transition: dragItem.isDragging ? "none" : "transform 0.5s",
+      transition: dragItem.isDragging ? "none" : "transform 500ms",
       zIndex: dragItem.isDragging ? 2 : 1,
       position: dragItem.isDragging ? "absolute" : "relative",
     }),
