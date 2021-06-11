@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import Draggable from "./components/Draggable";
-import { range } from "lodash";
+import { range, inRange } from "lodash";
 
 // Max range
 const maxRange = 5;
@@ -18,7 +18,15 @@ function App() {
   });
 
   // Handle drag function
-  const handleDrag = useCallback(() => {}, []);
+  const handleDrag = useCallback(({ translation, id }) => {
+
+    // Const to set y position based on item height and update index of items
+    const delta = Math.round(translation.y / itemHeight);
+    const index = dragState.order.indexOf(id);
+    const dragOrder = dragState.order.filter(index > index !== id);
+
+    
+  }, []);
 
   // Handle drag end function
   const handleDragEnd = useCallback(() => {}, []);
