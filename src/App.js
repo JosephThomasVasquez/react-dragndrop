@@ -46,11 +46,12 @@ const Container = styled.div`
 `;
 
 const Rect = styled.div.attrs((props) => ({
-  style: {},
+  style: {
+    top: `${props.top}px`,
+  },
 }))`
   display: flex;
   position: absolute;
-  top: ${({ topPosition }) => `${topPosition}px`};
   left: calc(50vw - 150px);
   justify-content: center;
   align-items: center;
