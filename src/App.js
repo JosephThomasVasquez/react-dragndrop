@@ -66,7 +66,8 @@ function App() {
             onDragEnd={handleDragEnd}
           >
             <Rect top={isDragging ? draggedTop : top} isDragging={isDragging}>
-              {index}
+              <Box />
+              <Text>Card {index}</Text>
             </Rect>
           </Draggable>
         );
@@ -82,6 +83,19 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
+const Box = styled.div`
+  width: 80px;
+  height: ${itemHeight}px;
+  background: crimson;
+  border-radius: 10px 0 0 10px;
+  position: relative;
+  margin-right: auto;
+`;
+
+const Text = styled.div`
+  margin-right: auto;
+`;
+
 const Rect = styled.div.attrs((props) => ({
   style: {
     top: `${props.top}px`,
@@ -93,7 +107,7 @@ const Rect = styled.div.attrs((props) => ({
   left: calc(50vw - 150px);
   justify-content: center;
   align-items: center;
-  width: 400px;
+  width: 300px;
   height: ${itemHeight}px;
   font-size: 24px;
   color: crimson;
