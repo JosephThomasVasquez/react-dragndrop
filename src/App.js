@@ -19,7 +19,9 @@ const Container = styled.div`
 `;
 
 const Rect = styled.div`
-  width: 200px;
+  width: 400px;
   height: 200px;
   background: crimson;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0, 0.5);
 `;

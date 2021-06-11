@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from "react";
 
 const mousePosition = { x: 0, y: 0 };
 
-const Draggable = ({ children }) => {
+const Draggable = ({ children, onDrag, onDragEnd, id }) => {
   // Set state parameters
   const [dragItem, setDragItem] = useState({
     isDragging: false,
@@ -34,18 +34,25 @@ const Draggable = ({ children }) => {
         ...dragItem,
         translation,
       }));
+
+      onDrag({ translation, id });
     },
-    [dragItem.origin]
+    [dragItem.origin, onDrag, id]
   );
 
   // MOUSE UP
   // Handle mouse Up event to set isDraggable to false
-  const handleMouseUp = useCallback(({ clientX, clientY }) => {
-    setDragItem((dragItem) => ({
-      ...dragItem,
-      isDragging: false,
-    }));
-  }, []);
+  const handleMouseUp = useCallback(
+    ({ clientX, clientY }) => {
+      setDragItem((dragItem) => ({
+        ...dragItem,
+        isDragging: false,
+      }));
+
+      onDragEnd();
+    },
+    [onDragEnd]
+  );
 
   // Use effect to update on mouse status using DOM event listeners
   useEffect(() => {
