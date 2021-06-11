@@ -10,6 +10,7 @@ const Draggable = ({ children }) => {
     translation: mousePosition,
   });
 
+  // MOUSE DOWN
   // Handle mouse down event and get user mouse X and Y positions
   const handleMouseDown = useCallback(({ clientX, clientY }) => {
     setDragItem((dragItem) => ({
@@ -19,19 +20,32 @@ const Draggable = ({ children }) => {
     }));
   }, []);
 
+  // MOSUE MOVE
   // Handle mouse down event and get user mouse X and Y positions
-  const handleMouseMove = useCallback(({ clientX, clientY }) => {
-    // Set drag item new x and y positions
-    const translation = {
-      x: clientX - dragItem.origin.x,
-      y: clientY - dragItem.origin.y,
-    };
+  const handleMouseMove = useCallback(
+    ({ clientX, clientY }) => {
+      // Set drag item new x and y positions
+      const translation = {
+        x: clientX - dragItem.origin.x,
+        y: clientY - dragItem.origin.y,
+      };
 
+      setDragItem((dragItem) => ({
+        ...dragItem,
+        translation,
+      }));
+    },
+    [dragItem.origin]
+  );
+
+  // MOUSE UP
+  // Handle mouse Up event to set isDraggable to false
+  const handleMouseUp = useCallback(({ clientX, clientY }) => {
     setDragItem((dragItem) => ({
       ...dragItem,
-      translation,
+      isDragging: false,
     }));
-  }, [dragItem.origin]);
+  }, []);
 
   // Use effect to update on mouse status using DOM event listeners
   useEffect(() => {
