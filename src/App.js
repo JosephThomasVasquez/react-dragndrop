@@ -18,18 +18,38 @@ function App() {
   });
 
   // Handle drag function
-  const handleDrag = useCallback(({ translation, id }) => {
+  const handleDrag = useCallback(
+    ({ translation, id }) => {
+      // Const to set y position based on item height and update index of items
+      const delta = Math.round(translation.y / itemHeight);
+      const index = dragState.order.indexOf(id);
+      const dragOrder = dragState.order.filter(index > index !== id);
 
-    // Const to set y position based on item height and update index of items
-    const delta = Math.round(translation.y / itemHeight);
-    const index = dragState.order.indexOf(id);
-    const dragOrder = dragState.order.filter(index > index !== id);
+      if (!inRange(index + delta, 0, draggableItems.length)) {
+        return;
+      }
 
-    
-  }, []);
+      dragOrder.splice(index + delta, 0, id);
+
+      // Update drag state id's and indexes
+      setDragState((dragState) => ({
+        ...dragState,
+        draggableIndex: id,
+        dragOrder,
+      }));
+    },
+    [dragState.order, draggableItems.length]
+  );
 
   // Handle drag end function
-  const handleDragEnd = useCallback(() => {}, []);
+  const handleDragEnd = useCallback(() => {
+    // Update drag state order
+    setDragState((dragState) => ({
+      ...dragState,
+      order: dragState.dragOrder,
+      draggableIndex: null,
+    }));
+  }, []);
 
   return (
     <Container>
