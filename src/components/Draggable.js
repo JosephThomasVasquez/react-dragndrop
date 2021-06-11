@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const Draggable = () => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+const Draggable = ({ children }) => {
+  return <div>{children}</div>;
+};
 
-export default Draggable
+export default Draggable;
