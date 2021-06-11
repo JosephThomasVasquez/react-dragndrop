@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 
 const mousePosition = { x: 0, y: 0 };
 
@@ -9,6 +9,15 @@ const Draggable = ({ children }) => {
     origin: mousePosition,
     translation: mousePosition,
   });
+
+  // Handle mouse down event and get user mouse X and Y positions
+  const handleMouseDown = useCallback(({ clientX, clientY }) => {
+    setDragItem((dragItem) => ({
+      ...dragItem,
+      isDragging: true,
+      origin: { x: clientX, y: clientY },
+    }));
+  }, []);
 
   // Set styles
   const styles = useMemo(
@@ -22,7 +31,11 @@ const Draggable = ({ children }) => {
     [dragItem.isDragging, dragItem.translation]
   );
 
-  return <div>{children}</div>;
+  return (
+    <div style={styles} onMouseDown={handleMouseDown}>
+      {children}
+    </div>
+  );
 };
 
 export default Draggable;
