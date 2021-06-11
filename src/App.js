@@ -17,12 +17,11 @@ function App() {
     draggableIndex: null,
   });
 
-  const handleDrag = useCallback(() => {
-      
-    },
-    []
-  );
+  // Handle drag function
+  const handleDrag = useCallback(() => {}, []);
 
+  // Handle drag end function
+  const handleDragEnd = useCallback(() => {}, []);
 
   return (
     <Container>
@@ -30,7 +29,7 @@ function App() {
         const topPosition = dragState.order.indexOf(index) * (itemHeight + 10);
 
         return (
-          <Draggable key={index} onDrag={handleDrag}>
+          <Draggable key={index} onDrag={handleDrag} onDragEnd={handleDragEnd}>
             <Rect top={topPosition}>{index}</Rect>
           </Draggable>
         );
