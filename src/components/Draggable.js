@@ -19,17 +19,21 @@ const Draggable = ({ children }) => {
     }));
   }, []);
 
-
   // Use effect to update on mouse status using DOM event listeners
-useEffect(() => {
-    
+  useEffect(() => {
     if (dragItem.isDragging) {
-        window.addEventListener('mousemove', handleMouseMove)
-        window.addEventListener('mouseup', handleMouseUp)
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
+    } else {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+
+      setDragItem((dragItem) => ({
+        ...dragItem,
+        translation: mousePosition,
+      }));
     }
-
-}, [])
-
+  }, [dragItem.isDragging, handleMouseMove, handleMouseUp]);
 
   // Set styles
   const styles = useMemo(
