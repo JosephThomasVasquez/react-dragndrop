@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 
 const mousePosition = { x: 0, y: 0 };
 
@@ -18,6 +18,18 @@ const Draggable = ({ children }) => {
       origin: { x: clientX, y: clientY },
     }));
   }, []);
+
+
+  // Use effect to update on mouse status using DOM event listeners
+useEffect(() => {
+    
+    if (dragItem.isDragging) {
+        window.addEventListener('mousemove', handleMouseMove)
+        window.addEventListener('mouseup', handleMouseUp)
+    }
+
+}, [])
+
 
   // Set styles
   const styles = useMemo(
