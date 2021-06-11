@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import Draggable from "./components/Draggable";
 import { range } from "lodash";
@@ -17,16 +17,21 @@ function App() {
     draggableIndex: null,
   });
 
+  const handleDrag = useCallback(() => {
+      
+    },
+    []
+  );
+
+
   return (
     <Container>
       {draggableItems.map((index) => {
         const topPosition = dragState.order.indexOf(index) * (itemHeight + 10);
 
         return (
-          <Draggable>
-            <Rect key={index} top={topPosition}>
-              {index}
-            </Rect>
+          <Draggable key={index} onDrag={handleDrag}>
+            <Rect top={topPosition}>{index}</Rect>
           </Draggable>
         );
       })}
