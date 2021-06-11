@@ -1,7 +1,19 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import Draggable from "./components/Draggable";
+import { range } from "lodash";
+
+const maxRange = 5;
 
 function App() {
+  const draggableItems = range(maxRange);
+
+  const [dragState, setDragState] = useState({
+    order: draggableItems,
+    dragOrder: draggableItems,
+    draggableIndex: null,
+  });
+
   return (
     <Container>
       <Draggable>
@@ -23,5 +35,5 @@ const Rect = styled.div`
   height: 200px;
   background: crimson;
   border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0,0,0, 0.5);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
 `;
